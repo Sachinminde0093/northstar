@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:northstar_task/core/utils/validation_functions.dart';
 import 'package:northstar_task/presentation/screens/onboard/onboarding_screen.dart';
@@ -59,7 +58,6 @@ class _OtpScreenState extends State<OtpScreen> {
           key: otpFormKey,
           child: Column(
             children: [
-              const SizedBox(height: 40.0),
               Text(
                 'Verify with OTP sent to $phoneEmail',
                 style: const TextStyle( fontWeight: FontWeight.bold, fontSize: 24.0),
