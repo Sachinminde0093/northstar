@@ -15,12 +15,32 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_MyAppState>()?.restartApp();
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
+
+  /// Function to restart app after logout
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: key,
       title: 'North Star',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -41,3 +61,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// I use simple navigator for routing.
+/// We can write all strings in one file, which can help with internationalization.
+/// We can use middleware to check if the user is already logged in or not.
+/// If the user is already logged in, then we can redirect the user to the home screen.

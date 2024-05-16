@@ -8,7 +8,6 @@ class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key,});
   static const routeName = '/otp';
 
-
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -48,26 +47,28 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     phoneEmail = args?['phoneEmail'] ?? '';
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-          child: Form(
-            key: otpFormKey,
-            child: Column(
-              children: [
-                const SizedBox(height: 40.0),
-                Text('Verify with OTP sent to $phoneEmail', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),),
-                const SizedBox(height: 16.0),
-                _buildOtpInput(),
-                const SizedBox(height: 16.0),
-                _buildGetOtpButton(),
-              ],
-            ),
+      /// this line is added only because after logout it do not display a status bar
+      appBar: AppBar(automaticallyImplyLeading: false),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        child: Form(
+          key: otpFormKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 40.0),
+              Text(
+                'Verify with OTP sent to $phoneEmail',
+                style: const TextStyle( fontWeight: FontWeight.bold, fontSize: 24.0),
+              ),
+              const SizedBox(height: 16.0),
+              _buildOtpInput(),
+              const SizedBox(height: 16.0),
+              _buildGetOtpButton(),
+            ],
           ),
         ),
       ),
@@ -78,21 +79,24 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget _buildOtpInput() => TextFormField(
       controller: otpController,
       keyboardType: TextInputType.number,
-      decoration: const InputDecoration(border: OutlineInputBorder(), hintText: '123456'),
+      decoration: const InputDecoration( border: OutlineInputBorder(), hintText: '123456'),
       validator: (value) => validatorFunction(value));
 
   /// Verify otp button
   Widget _buildGetOtpButton() => SizedBox(
-    width: double.maxFinite,
-    height: 54,
-    child: ElevatedButton(
-      style: CustomButtonStyles.fillPrimary,
-        onPressed: () => verifyOtpFunction(), child: const Text('Verify Otp', style: TextStyle(
-        color: Colors.white,
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold),
-    )),
-  );
+        width: double.maxFinite,
+        height: 54,
+        child: ElevatedButton(
+            style: CustomButtonStyles.fillPrimary,
+            onPressed: () => verifyOtpFunction(),
+            child: const Text(
+              'Verify Otp',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            )),
+      );
 
   @override
   void dispose() {
@@ -100,5 +104,4 @@ class _OtpScreenState extends State<OtpScreen> {
     otpFormKey.currentState?.dispose();
     super.dispose();
   }
-
 }

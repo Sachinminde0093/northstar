@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:northstar_task/presentation/screens/login/login_screen.dart';
+import 'package:northstar_task/main.dart';
 import 'package:northstar_task/theme/custom_button_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,12 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> logoutFunction() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    Navigator.pushReplacementNamed(
-      context,
-      LoginScreen.routeName
-    );
-  }
 
+    /// It do not restart app, it only remove all routes and push login route
+    // Navigator.pushReplacementNamed(
+    //   context,
+    //   LoginScreen.routeName
+    // );
+    /// Restart app - but it convert MyApp from stateless to stateful
+    MyApp.restartApp(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,5 +81,3 @@ class _HomeScreenState extends State<HomeScreen> {
   );
 }
 
-/// all string written in one file for internationalization
-/// middleware for route to home screen if already login

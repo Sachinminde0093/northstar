@@ -48,23 +48,24 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// this line is added only because after logout it do not display a status bar
+      appBar: AppBar(automaticallyImplyLeading: false),
       body: Form(
         key: loginFormKey,
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0).copyWith(top: 45),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40.0),
+
               const Text(
                 'Enter your mobile number or email address',
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16.0),
-              _numberEmailInput(),
+              _buildNumberEmailInput(),
               const SizedBox(height: 16.0),
-              _getOtpButton(),
+              _buildGetOtpButton(),
               const SizedBox(height: 16.0),
               _buildTermsAndConditionWidget(),
             ],
@@ -75,13 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// Input field for number or email
-  Widget _numberEmailInput() => TextFormField(
+  Widget _buildNumberEmailInput() => TextFormField(
       controller: numberEmailController,
       decoration: const InputDecoration(border: OutlineInputBorder(),),
       validator: (value) => validatorFunction(value));
 
   /// Get otp button
-  Widget _getOtpButton() => SizedBox(
+  Widget _buildGetOtpButton() => SizedBox(
         width: double.maxFinite,
         height: 54,
         child: ElevatedButton(

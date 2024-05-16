@@ -71,11 +71,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const SizedBox(
                   height: 16.0,
                 ),
-                _nameInputField(),
+                _buildNameInputField(),
                 const SizedBox(
                   height: 16.0,
                 ),
-                _submitButton(),
+                _buildSubmitButton(),
               ],
             ),
           ),
@@ -85,7 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   /// Input field for OTP
-  Widget _nameInputField() => TextFormField(
+  Widget _buildNameInputField() => TextFormField(
       controller: nameController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
@@ -93,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       validator: (value) => validatorFunction(value));
 
   /// Verify otp button
-  Widget _submitButton() => SizedBox(
+  Widget _buildSubmitButton() => SizedBox(
         width: double.maxFinite,
         height: 54,
         child: ElevatedButton(
