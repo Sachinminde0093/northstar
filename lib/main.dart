@@ -5,6 +5,8 @@ import 'package:northstar_task/presentation/screens/login/login_screen.dart';
 import 'package:northstar_task/presentation/screens/onboard/onboarding_screen.dart';
 import 'package:northstar_task/presentation/screens/otp/otp_screen.dart';
 
+import 'presentation/widgets/dismiss_keyboard.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -39,27 +41,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      key: key,
-      title: 'North Star',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        inputDecorationTheme: const InputDecorationTheme(
-          errorStyle: TextStyle(fontSize: 16), // Define the error text style here
+    return DismissKeyboard(
+      child: MaterialApp(
+        key: key,
+        title: 'North Star',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          inputDecorationTheme: const InputDecorationTheme(
+            errorStyle: TextStyle(fontSize: 16), // Define the error text style here
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/login', // Initial route
+        routes: {
+          '/login': (context) => const LoginScreen(),
+          '/otp': (context) => const OtpScreen(),
+          '/onboarding': (context) => const OnboardingScreen(),
+          '/home': (context) => const HomeScreen(),
+        },
       ),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/login', // Initial route
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/otp': (context) => const OtpScreen(),
-        '/onboarding': (context) => const OnboardingScreen(),
-        '/home': (context) => const HomeScreen(),
-      },
     );
   }
 }
+
 
 /// I use simple navigator for routing.
 /// We can write all strings in one file, which can help with internationalization.

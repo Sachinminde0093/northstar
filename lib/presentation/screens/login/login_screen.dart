@@ -47,28 +47,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       /// this line is added only because after logout it do not display a status bar
       appBar: AppBar(automaticallyImplyLeading: false),
-      body: Form(
-        key: loginFormKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Form(
+          key: loginFormKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              const Text(
-                'Enter your mobile number or email address',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16.0),
-              _buildNumberEmailInput(),
-              const SizedBox(height: 16.0),
-              _buildGetOtpButton(),
-              const SizedBox(height: 16.0),
-              _buildTermsAndConditionWidget(),
-            ],
+                const Text(
+                  'Enter your mobile number or email address',
+                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16.0),
+                _buildNumberEmailInput(),
+                const SizedBox(height: 16.0),
+                _buildGetOtpButton(),
+                const SizedBox(height: 16.0),
+                _buildTermsAndConditionWidget(),
+              ],
+            ),
           ),
         ),
       ),
@@ -78,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Input field for number or email
   Widget _buildNumberEmailInput() => TextFormField(
       controller: numberEmailController,
+      autofocus: true,
       decoration: const InputDecoration(border: OutlineInputBorder(),),
       validator: (value) => validatorFunction(value));
 

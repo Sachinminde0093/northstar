@@ -43,8 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     phoneEmail = args?['phoneEmail'] ?? '';
 
     return Scaffold(
@@ -61,20 +60,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 16.0,
-                ),
+                const SizedBox(height: 16.0),
                 const Text(
                   'Enter Your name',
                   style: TextStyle(fontSize: 18.0),
                 ),
-                const SizedBox(
-                  height: 16.0,
-                ),
+                const SizedBox(height: 16.0),
                 _buildNameInputField(),
-                const SizedBox(
-                  height: 16.0,
-                ),
+                const SizedBox(height: 16.0),
                 _buildSubmitButton(),
               ],
             ),
@@ -87,6 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   /// Input field for OTP
   Widget _buildNameInputField() => TextFormField(
       controller: nameController,
+      autofocus: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
           border: OutlineInputBorder(), hintText: 'sachin...'),

@@ -78,6 +78,7 @@ class _OtpScreenState extends State<OtpScreen> {
   /// Input field for Otp
   Widget _buildOtpInput() => TextFormField(
       controller: otpController,
+      autofocus: true,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration( border: OutlineInputBorder(), hintText: '123456'),
       validator: (value) => validatorFunction(value));
