@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:northstar_task/core/utils/validation_functions.dart';
 import 'package:northstar_task/presentation/screens/onboard/onboarding_screen.dart';
+import 'package:northstar_task/theme/custom_button_style.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key,});
@@ -35,8 +37,12 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void verifyOtpFunction() {
     if (otpFormKey.currentState!.validate()) {
-      Navigator.pushReplacementNamed(
-          context, OnboardingScreen.routeName, arguments: {'phoneEmail': phoneEmail});
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        OnboardingScreen.routeName,
+        arguments: {'phoneEmail': phoneEmail},
+        (route) => false,
+      );
     }
   }
 
@@ -54,9 +60,12 @@ class _OtpScreenState extends State<OtpScreen> {
             key: otpFormKey,
             child: Column(
               children: [
-                Text('Enter OTP sent on $phoneEmail', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),),
-                _otpInput(),
-                _getOtpButton(),
+                const SizedBox(height: 40.0),
+                Text('Verify with OTP sent to $phoneEmail', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),),
+                const SizedBox(height: 16.0),
+                _buildOtpInput(),
+                const SizedBox(height: 16.0),
+                _buildGetOtpButton(),
               ],
             ),
           ),
@@ -66,12 +75,30 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   /// Input field for Otp
-  Widget _otpInput() => TextFormField(
+  Widget _buildOtpInput() => TextFormField(
       controller: otpController,
       keyboardType: TextInputType.number,
+      decoration: const InputDecoration(border: OutlineInputBorder(), hintText: '123456'),
       validator: (value) => validatorFunction(value));
 
   /// Verify otp button
-  Widget _getOtpButton() => ElevatedButton(
-      onPressed: () => verifyOtpFunction(), child: const Text('Verify Otp'));
+  Widget _buildGetOtpButton() => SizedBox(
+    width: double.maxFinite,
+    height: 54,
+    child: ElevatedButton(
+      style: CustomButtonStyles.fillPrimary,
+        onPressed: () => verifyOtpFunction(), child: const Text('Verify Otp', style: TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold),
+    )),
+  );
+
+  @override
+  void dispose() {
+    otpController.dispose();
+    otpFormKey.currentState?.dispose();
+    super.dispose();
+  }
+
 }
